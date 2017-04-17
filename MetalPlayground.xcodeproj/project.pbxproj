@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F702184C1E9EC3C000AF49CF /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = F702184B1E9EC3C000AF49CF /* main.swift */; };
+		F70218531E9ECFC100AF49CF /* kernel.metal in Sources */ = {isa = PBXBuildFile; fileRef = F70218521E9ECFC100AF49CF /* kernel.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		F70218481E9EC3C000AF49CF /* MetalPlayground */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MetalPlayground; sourceTree = BUILT_PRODUCTS_DIR; };
 		F702184B1E9EC3C000AF49CF /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		F70218521E9ECFC100AF49CF /* kernel.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = kernel.metal; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				F702184B1E9EC3C000AF49CF /* main.swift */,
+				F70218521E9ECFC100AF49CF /* kernel.metal */,
 			);
 			path = MetalPlayground;
 			sourceTree = "<group>";
@@ -120,6 +123,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F70218531E9ECFC100AF49CF /* kernel.metal in Sources */,
 				F702184C1E9EC3C000AF49CF /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
