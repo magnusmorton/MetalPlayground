@@ -7,6 +7,7 @@
 //
 
 #include <metal_stdlib>
+#include <metal_compute>
 
 using namespace metal;
 uint gcd(uint, uint);
@@ -36,6 +37,23 @@ kernel void euler_totient(constant uint* in [[buffer(0)]], device uint* out [[bu
     out[gid] = phi(in[gid]);
 }
 
-kernel void reduction(constant uint* in [[buffer(0)]], device uint* out [[buffer(1)]], uint gid [[thread_position_in_grid]], uint lid ) {
+kernel void parsum(constant uint* in [[buffer(1)]], device uint* partialSums [[buffer(2)]],
+                      threadgroup uint* localSums [[ threadgroup(0) ]],
+                      uint tid [[thread_position_in_grid]],
+                      uint lid [[thread_index_in_threadgroup]],
+                      uint size [[threads_per_threadgroup]],
+                      uint gid [[threadgroup_position_in_grid]]) {
+    
+    localSums[lid] = in[tid];
+    for (uint offset = 1; offset < size; offset <<=1) {
+        int mask = (offset << 1) - 1;
+        threadgroup_barrier(mem_flags::mem_threadgroup);
+        if ((lid & mask) == 0)
+            localSums[lid] += localSums[lid + offset];
+    }
+    
+    if (lid == 0)
+        partialSums[gid] = localSums[0];
+    
     
 }

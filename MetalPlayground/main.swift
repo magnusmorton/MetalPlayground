@@ -22,31 +22,39 @@ var queue  = device?.makeCommandQueue()
 var commandBuffer = queue?.makeCommandBuffer()
 var encoder = commandBuffer?.makeComputeCommandEncoder()
 
-var totient = lib?.makeFunction(name: "euler_totient")
-var compState = try? device?.makeComputePipelineState(function: totient!)
-encoder?.setComputePipelineState(compState!!)
+let totient = lib?.makeFunction(name: "euler_totient")
+let reduce = lib?.makeFunction(name: "parsum")
+let eulerState = try? device?.makeComputePipelineState(function: totient!)
+let reduceState = try? device?.makeComputePipelineState(function: reduce!)
+encoder?.setComputePipelineState(eulerState!!)
 
 let bytes = data.count * MemoryLayout<UInt32>.size
-
 var inBuf = device?.makeBuffer(bytes: data, length: bytes)
-
 encoder?.setBuffer(inBuf, offset: 0, at: 0)
-var result = Array(repeating:0, count: data.count )
-var outBuf = device?.makeBuffer(bytes: result, length: bytes)
+
+let outBuf = device?.makeBuffer(length: bytes, options: [])
 encoder?.setBuffer(outBuf, offset: 0, at: 1)
 
-//let w = compState!!.threadExecutionWidth
-//let threadsPerThreadGroup = compState!!.maxTotalThreadsPerThreadgroup
-let threadsPerGroup = MTLSize(width: 32, height: 1, depth: 1)
-let numThreadGroups = MTLSize(width: (data.count + 31)/32, height:1, depth:1)
+var partialSums = device?.makeBuffer(length: 256 * MemoryLayout<UInt32>.size, options: [])
+encoder?.setBuffer(partialSums, offset: 0, at: 2)
 
-//encoder?.dispatchThreadgroups(MTLSize(width:w, height:1, depth:1), threadsPerThreadgroup: MTLSize(width:threadsPerThreadGroup, height:1, depth:1))
+
+let threadsPerGroup = MTLSize(width: 256, height: 1, depth: 1)
+let numThreadGroups = MTLSize(width: 256, height:1, depth:1)
+
+encoder?.setThreadgroupMemoryLength(MemoryLayout<UInt32>.size * 256, at: 0)
 encoder?.dispatchThreadgroups(numThreadGroups, threadsPerThreadgroup:threadsPerGroup )
+
+encoder?.setComputePipelineState(reduceState!!)
+encoder?.dispatchThreadgroups(numThreadGroups, threadsPerThreadgroup: threadsPerGroup)
 encoder?.endEncoding()
+
+let kstart = DispatchTime.now()
 commandBuffer?.commit()
 commandBuffer?.waitUntilCompleted()
 
-let buf = UnsafeBufferPointer(start:outBuf?.contents().assumingMemoryBound(to: UInt32.self), count:data.count)
+let kend = DispatchTime.now()
+let buf = UnsafeBufferPointer(start:partialSums?.contents().assumingMemoryBound(to: UInt32.self), count:256)
 
 let out = Array(buf) 
 var sum: UInt32 = 0
@@ -58,6 +66,7 @@ let now = DispatchTime.now()
 
 print(sum)
 
+print("GPU time: \((kend.uptimeNanoseconds - kstart.uptimeNanoseconds) / 1000000) milliseconds")
 print("time: \((now.uptimeNanoseconds - then.uptimeNanoseconds) / 1000000) milliseconds")
 
 //print(out)

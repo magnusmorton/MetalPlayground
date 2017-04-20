@@ -11,6 +11,30 @@
 		F70218531E9ECFC100AF49CF /* kernel.metal in Sources */ = {isa = PBXBuildFile; fileRef = F70218521E9ECFC100AF49CF /* kernel.metal */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F73FFC121EA95B3E0020F0B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F73FFC0C1EA95B3D0020F0B8 /* iOSMetal.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F73FFBDB1EA95B3D0020F0B8;
+			remoteInfo = iOSMetal;
+		};
+		F73FFC141EA95B3E0020F0B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F73FFC0C1EA95B3D0020F0B8 /* iOSMetal.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F73FFBEF1EA95B3D0020F0B8;
+			remoteInfo = iOSMetalTests;
+		};
+		F73FFC161EA95B3E0020F0B8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F73FFC0C1EA95B3D0020F0B8 /* iOSMetal.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F73FFBFA1EA95B3D0020F0B8;
+			remoteInfo = iOSMetalUITests;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		F70218461E9EC3C000AF49CF /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -27,6 +51,7 @@
 		F70218481E9EC3C000AF49CF /* MetalPlayground */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MetalPlayground; sourceTree = BUILT_PRODUCTS_DIR; };
 		F702184B1E9EC3C000AF49CF /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		F70218521E9ECFC100AF49CF /* kernel.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = kernel.metal; sourceTree = "<group>"; };
+		F73FFC0C1EA95B3D0020F0B8 /* iOSMetal.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = iOSMetal.xcodeproj; path = iOSMetal/iOSMetal.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,10 +84,21 @@
 		F702184A1E9EC3C000AF49CF /* MetalPlayground */ = {
 			isa = PBXGroup;
 			children = (
+				F73FFC0C1EA95B3D0020F0B8 /* iOSMetal.xcodeproj */,
 				F702184B1E9EC3C000AF49CF /* main.swift */,
 				F70218521E9ECFC100AF49CF /* kernel.metal */,
 			);
 			path = MetalPlayground;
+			sourceTree = "<group>";
+		};
+		F73FFC0D1EA95B3D0020F0B8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F73FFC131EA95B3E0020F0B8 /* iOSMetal.app */,
+				F73FFC151EA95B3E0020F0B8 /* iOSMetalTests.xctest */,
+				F73FFC171EA95B3E0020F0B8 /* iOSMetalUITests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -111,12 +147,42 @@
 			mainGroup = F702183F1E9EC3C000AF49CF;
 			productRefGroup = F70218491E9EC3C000AF49CF /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F73FFC0D1EA95B3D0020F0B8 /* Products */;
+					ProjectRef = F73FFC0C1EA95B3D0020F0B8 /* iOSMetal.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				F70218471E9EC3C000AF49CF /* MetalPlayground */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		F73FFC131EA95B3E0020F0B8 /* iOSMetal.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = iOSMetal.app;
+			remoteRef = F73FFC121EA95B3E0020F0B8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F73FFC151EA95B3E0020F0B8 /* iOSMetalTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = iOSMetalTests.xctest;
+			remoteRef = F73FFC141EA95B3E0020F0B8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		F73FFC171EA95B3E0020F0B8 /* iOSMetalUITests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = iOSMetalUITests.xctest;
+			remoteRef = F73FFC161EA95B3E0020F0B8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		F70218441E9EC3C000AF49CF /* Sources */ = {
@@ -256,6 +322,7 @@
 				F70218511E9EC3C100AF49CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
